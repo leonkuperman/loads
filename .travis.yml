@@ -1,0 +1,19 @@
+language: go
+go:
+- 1.7.1
+install:
+- go get -u github.com/axw/gocov/gocov
+- go get -u gopkg.in/matm/v1/gocov-html
+- go get -u github.com/cee-dub/go-junit-report
+- go get -u github.com/stretchr/testify/assert
+- go get -u gopkg.in/yaml.v2
+- go get -u github.com/go-openapi/swag
+- go get -u github.com/go-openapi/analysis
+- go get -u github.com/go-openapi/spec
+script:
+- "./hack/coverage"
+after_success:
+- bash <(curl -s https://codecov.io/bash)
+notifications:
+  slack:
+    secure: GzubVDGxFvaoxmqB+ZBpwvaMhz9cUJYbJyhYWlPJG2xN3hu3WPI37UCq1s5jrx1NFqLVGq7QEI/X/5FEn0uq0kdAMuUP4Ht0CXWLNhakGb49dOpyx1tz8TcL9qJ0VolVsyeIBAuyFQjM/awwjfyYg/OuI6j2UgscNQMRSUHZrxerFtWpVXAVT4onb53ZsiBqAWonRI6uiJ9lrDMIhTceiauDWpJYSjAI+P+PochppV1qmiFv0xotcR2OQ1ByouyeqvtqLYmP5hozTdTlsPbDaO9PT0m29vStZ0VfPWx0SttavEwYHHxV16EhUhNMO7GMYDIE44X34zrrQYJSc7aG8JlW1dcLqnuUXr8k0tgrrCnW2/xsJvFsRhp7SZkZ0sd1/WfWRQAahPNP6yzokmw3vMgUZoXuXtzVW92bHIpedVA8PmegzfowCeDr3DMY0m62uEWWPSeeWPs62eSRPytl5DHmxd9TsouOZSn+JLC4W63Bya4vpOgbtbnBPDYxvVdW4IO1OkN3PiIPr1wM3sYH/IGwB2y2zJAequ7PWr1gPddaJqi+OdoEHmdpXvtYhrbQbxTCwj9wlVuYm96MEbRyk3coEd9M4AMEa41BxlP2d93DKnYC7mtQ2YtTgAT1hmJseNr2uvLmstrVxCaxG1Mz1uc6G9mHIu9g7Tk26vMU56g=
