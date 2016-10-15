@@ -39,7 +39,10 @@ type DocLoader func(string) (json.RawMessage, error)
 // DocMatcher represents a predicate to check if a loader matches
 type DocMatcher func(string) bool
 
-var loaders = &loader{Match: func(_ string) bool { return true }, Fn: JSONDoc}
+var (
+	loaders      *loader
+	swag20Schema *spec.Schema
+)
 
 // AddLoader for a document
 func AddLoader(predicate DocMatcher, load DocLoader) {
@@ -100,7 +103,10 @@ func Spec(path string) (*Document, error) {
 	return Analyzed(b, "")
 }
 
-var swag20Schema = spec.MustLoadSwagger20Schema()
+func init() {
+	loaders = &loader{Match: func(_ string) bool { return true }, Fn: JSONDoc}
+	swag20Schema = spec.MustLoadSwagger20Schema()
+}
 
 // Analyzed creates a new analyzed spec document
 func Analyzed(data json.RawMessage, version string) (*Document, error) {
